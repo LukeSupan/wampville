@@ -2,6 +2,7 @@
 session_start();
 include '../database/db_connect.php';
 
+// php login
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password']; // simple hash. change later PLEASE
@@ -11,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows > 0) {
         $_SESSION['username'] = $username;
-        header("Location: dashboard.php");
+        header("Location: ../postauth/dashboard.php");
         exit();
     } else {
         $error = "Invalid username or password";
@@ -31,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <div class="login-container">
-        <h2>Logdfgin</h2>
+        <h2>Login</h2>
         <form method="POST" action="">
             <input type="text" name="username" placeholder="Username" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
-            <button type="submit">Logasin</button>
+            <button type="submit">Login</button>
         </form>
         <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
   </div>
