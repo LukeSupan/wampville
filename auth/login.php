@@ -26,6 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // hash current password and compare to the hashed one
         if (password_verify($password, $hashed)) {
 
+            // replace current session ID with this one
+            session_regenerate_id(true);
+
             // store user data in session to check later
             $_SESSION['username'] = $user['username'];
             $_SESSION['user_id'] = $user['id'];

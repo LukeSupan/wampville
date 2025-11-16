@@ -50,6 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
 
         <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
-  </div>
+    </div>
 </body>
 </html>
