@@ -110,38 +110,70 @@ $matches = $conn->query("
 </head>
 
 <body>
-    <div class="user-wrapper">
+    <div class="dashboard-wrapper">
+        <!-- the little arrow is fun. -->
         <a class="back-link" href="dashboard.php">← Back to Dashboard</a>
         <h1 class="user-title"><?php echo htmlspecialchars($username); ?> — Stats</h1>
 
-        <div class="overview">
+        <div class="overview-container">
             <h2>Overview</h2>
-            <ul>
-                <li><strong>Total Kills:</strong> <?php echo $total_kills; ?></li>
-                <li><strong>Total Deaths:</strong> <?php echo $total_deaths; ?></li>
-                <li><strong>Average Kills:</strong> <?php echo $avg_kills; ?></li>
-                <li><strong>Average Deaths:</strong> <?php echo $avg_deaths; ?></li>
-                <li><strong>K/D Ratio:</strong> <?php echo $kd; ?></li>
-                <li><strong>Most Common Playstyle:</strong> <?php echo ucfirst($most_common_style); ?></li>
-            </ul>
+
+            <div class="overview-grid">
+                <!-- TOP ROW -->
+                <div class="stat-card">
+                    <strong>Total Kills</strong>
+                    <span><?php echo $total_kills; ?></span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>Total Deaths</strong>
+                    <span><?php echo $total_deaths; ?></span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>K/D Ratio</strong>
+                    <span><?php echo $kd; ?></span>
+                </div>
+
+                <!-- BOTTOM ROW -->
+                <div class="stat-card">
+                    <strong>Average Kills</strong>
+                    <span><?php echo $avg_kills; ?></span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>Average Deaths</strong>
+                    <span><?php echo $avg_deaths; ?></span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>Playstyle</strong>
+                    <span><?php echo ucfirst($most_common_style); ?></span>
+                </div>
+            </div>
         </div>
 
         <h2>Last 5 Matches</h2>
         <div class="match-list">
-            <?php if ($matches->num_rows > 0): ?>
-                <?php while ($m = $matches->fetch_assoc()): ?>
-                    <div class="match-card">
-                        <ul>
-                            <li>Kills: <?php echo $m['kills']; ?></li>
-                            <li>Deaths: <?php echo $m['deaths']; ?></li>
-                            <li>Playstyle: <?php echo ucfirst($m['playstyle']); ?></li>
-                        </ul>
-                        <small>Played at: <?php echo $m['played_at']; ?></small>
+            <?php while ($m = $matches->fetch_assoc()): ?>
+                <div class="match-card">
+
+                    <div class="match-card-header">
+                        <a class="match-username" href="user.php?id=<?php echo $m['user_id']; ?>">
+                            <?php echo htmlspecialchars($username); ?>
+                        </a>
+                        <span class="match-date"><?php echo $m['played_at']; ?></span>
                     </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p>No matches recorded.</p>
-            <?php endif; ?>
+
+                    <div class="match-stats-grid">
+                        <div>Kills: <?php echo $m['kills']; ?></div>
+                        <div>Deaths: <?php echo $m['deaths']; ?></div>
+                        <div>KD: <?php echo round($m['kills'] / max($m['deaths'],1), 2); ?></div>
+                        <div>Playstyle: <?php echo ucfirst($m['playstyle']); ?></div>
+                    </div>
+
+                </div>
+            <?php endwhile; ?>
         </div>
     </div>
 </body>
