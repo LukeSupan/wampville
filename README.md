@@ -13,4 +13,5 @@ simple stat tracker. lets admins CRUD stuff. lets user read stuff. WAMP
 9.  go to localhost. navigate to htdocs, open halo-stat-tracker.
 10. all passwords are the same as the username. for simplicity use admin for admin and user for user
 
-HOLD
+once you have all that done the CRUD operations are all pretty obvious
+the one to many relationship is that one user has many associated matches. each match is owned by one user.
