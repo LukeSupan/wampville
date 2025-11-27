@@ -15,3 +15,4 @@ simple stat tracker. lets admins CRUD stuff. lets user read stuff. WAMP
 
 once you have all that done the CRUD operations are all pretty obvious
 the one to many relationship is that one user has many associated matches. each match is owned by one user.
+you can click on the username next to each match to see a stats screen for them specifically.
